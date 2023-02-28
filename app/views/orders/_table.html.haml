@@ -38,7 +38,11 @@
           %td= order.quantity
           %td= (icon_tag(:star) * order.priority).html_safe
           %td= t("orders.statuses.#{order.status}")
-          %td= order.notes.last.content + "<br>" + order.notes.last.author.full_name
+          %td
+            = order.notes.last.content 
+            %br
+            %span{style: 'color:green'}
+              =order.notes.last.author.full_name
           %td= order.desired_date.present? ? l(order.desired_date) : '-'
           %td
             = l order.created_at, format: :date_time
@@ -52,13 +56,13 @@
               = link_to_destroy_small order if can? :destroy, order
             = button_to_change_order_status(order) unless order.canceled?
         %tr{class: row_class, id: "edit_order_#{ order.id }_comment"}
-          %td{colspan: 12}= order.comment
+          %td{colspan: 13}= order.comment
 
         %tr{class: row_class, id: "edit_order_#{ order.id }_user_comment"}
-          %td{colspan: 12}= order.user_comment
+          %td{colspan: 13}= order.user_comment
 
         %tr
-          %td{colspan: 12}
+          %td{colspan: 13}
 
   = paginate @orders if params[:status].present?
 
