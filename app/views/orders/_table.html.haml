@@ -15,6 +15,7 @@
         %th= sortable 'quantity', model_class.human_attribute_name(:quantity)
         %th= sortable 'priority', model_class.human_attribute_name(:priority)
         %th= sortable 'status', model_class.human_attribute_name(:status)
+        %th= sortable 'last_comment', model_class.human_attribute_name(:last_comment)
         %th= sortable 'desired_date', model_class.human_attribute_name(:desired_date)
         %th= sortable 'created_at', model_class.human_attribute_name(:created_at)
         - if can? :modify, Order
@@ -37,6 +38,7 @@
           %td= order.quantity
           %td= (icon_tag(:star) * order.priority).html_safe
           %td= t("orders.statuses.#{order.status}")
+          %td= order.notes.last.content + "<br>" + order.notes.last.author.full_name
           %td= order.desired_date.present? ? l(order.desired_date) : '-'
           %td
             = l order.created_at, format: :date_time
